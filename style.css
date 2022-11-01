@@ -1,1 +1,13 @@
-#map { height: 100vh; }
+*::after,
+*::before,
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#map {
+  height: 100vh;
+}

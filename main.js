@@ -14,11 +14,20 @@ fetch("https://data.nasa.gov/resource/gh4g-9sfh.json")
     const a=body
     //complimento.innerText =JSON.stringify(a[2].geolocation)
     for(let i=0;i<a.length;i++){
-      L.marker([a[i].geolocation.latitude,a[i].geolocation.longitude]).addTo(map).bindPopup(JSON.stringify(a[i].geolocation))
+      if(!a[i].geolocation) continue
+      L.marker([a[i].geolocation.latitude,a[i].geolocation.longitude]).addTo(map).bindPopup(a[i].name)
     }
   })
-const map = L.map('map').setView([51.505, -0.09], 13);
+// limitare sopra e sotto, ripetere sinistra e destra
+const map = L.map("map", {
+  worldCopyJump: true,
+  maxBounds: [
+    [-90, -Infinity],
+    [90, Infinity],
+  ],
+}).setView([51.505, -0.09], 4)
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    minZoom: 3,
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
